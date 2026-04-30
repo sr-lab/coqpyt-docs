@@ -26,7 +26,7 @@ This document covers the basic breakdown of the CoqPyt system, allowing for the 
 
 With how CoqPyt is designed, the system could be broken down into 4 components, the Rocq LSP itself, the LSP Client, the Rocq Context, and finally the base of CoqPyt itself. This is not how the system is structured in the source code, however it can be helpful to view it this way for better understanding.
 
-![Components](./documentation/images/ComponentDiagram.png)
+![Components](./images/ComponentDiagram.png)
 
 The `Rocq-lsp` component is a refence to the Rocq Language Server that runs separately on the machine. This component offers its service through the LSP, allowing other processes, such as VSCode and CoqPyt to analyze and modify Rocq files. The exact implementation of this component is not a concern of this system, however the interface of the LSP is. Details on the exact protocol used by the LSP can be found from [Microsoft](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/) and the [Rocq Community](https://github.com/rocq-community/rocq-lsp/blob/main/etc/doc/PROTOCOL.md).
 
@@ -38,7 +38,7 @@ The `CoqPyt` component is the main interface that is open for the user to intera
 
 As a framework intended to communicate with the Rocq LSP, proper interfaces must be put in place to assist with this communication. To do so, the CoqPyt source code is broken down into 3 packages, as shown below.
 
-![Packages](./documentation/images/Package%20Diagram.png)
+![Packages](./images/Package%20Diagram.png)
 
 The external `lsp` package contains a basic implementation of JSON RPC based LSP client. The `coq` package contains all classes that are directly related to CoqPyt, such as the `CoqFile` class and `FileContext` class. With in the `coq` package, the internal `lsp` package contains a specialized instance of an LSP client for Rocq. More information of how each of these packages carry out their tasks can be found below.
 
@@ -47,9 +47,9 @@ The external `lsp` package contains a basic implementation of JSON RPC based LSP
 
 ### `lsp` Package
 
-![LspClasses](./documentation/images/lsp%20Class%20Diagram.png)
+![LspClasses](./images/lsp%20Class%20Diagram.png)
 
-The `lsp` package defines the many structures used by LSPs as defined in the LSP Specifications and provides implementations for interfaces to communicate with an LSP. Notable classes in this package include [`Range`](./documentation/lsp/structs/Range.md), [`Diagnostic`](./documentation/lsp/structs/Diagnostic.md), [`JsonRpcEndpoint`](./documentation/lsp/json_rpc_endpoint/JsonRpcEndpoint.md), [`LspEndpoint`](./documentation/lsp/endpoint/LspEndpoint.md), and [`LspClient`](./documentation/lsp/client/LspClient.md). 
+The `lsp` package defines the many structures used by LSPs as defined in the LSP Specifications and provides implementations for interfaces to communicate with an LSP. Notable classes in this package include [`Range`](./coqpyt/lsp/structs/Range.md), [`Diagnostic`](./coqpyt/lsp/structs/Diagnostic.md), [`JsonRpcEndpoint`](./coqpyt/lsp/json_rpc_endpoint/JsonRpcEndpoint.md), [`LspEndpoint`](./coqpyt/lsp/endpoint/LspEndpoint.md), and [`LspClient`](./coqpyt/lsp/client/LspClient.md). 
 
 #### `Range`
 Since language servers handle text files, having a way to specify a group of characters in these files is important. The `Range` class allows for the refencing of a string between two positions in a file. This class use used frequently throughout CoqPyt to assist in the modification of the files. 
@@ -73,9 +73,9 @@ Through the `LspEndpoint`, the `LspClient` provides the final abstraction of com
 
 ### `coq::lsp` Package
 
-![CoqLspClasses](./documentation/images/coq-lsp%20Class%20Diagram.png)
+![CoqLspClasses](./images/coq-lsp%20Class%20Diagram.png)
 
-The `coq::lsp` package defines additional structures used only by the Rocq LSP to create a specialization on top of the basic `LspClient`. Notable classes in this package include [`FlecheDocument`](./documentation/coq/lsp/structs/FlecheDocument.md), [`GoalAnswer`](./documentation/coq/lsp/structs/GoalAnswer.md), and [`CoqLspClient`](./documentation/coq/lsp/client/CoqLspClient.md).
+The `coq::lsp` package defines additional structures used only by the Rocq LSP to create a specialization on top of the basic `LspClient`. Notable classes in this package include [`FlecheDocument`](./coqpyt/coq/lsp/structs/FlecheDocument.md), [`GoalAnswer`](./coqpyt/coq/lsp/structs/GoalAnswer.md), and [`CoqLspClient`](./coqpyt/coq/lsp/client/CoqLspClient.md).
 
 #### `FlecheDocument`
 In order to represent the parse tree for a file, the Rocq LSP use the Fleche document format to define an AST. Once retrieved from the LSP, the Fleche document holds two attributes, an AST of the file and a status object for how far the AST reaches in the file. Each element in the AST is represented using a `RangedSpan` object which holds the element itself the location of the element in the file. Each element in this AST is in the format of a Vernacular expression. The details of the format of these expressions can be found in the Rocq Prover documentation in the [Vernacexpr package](https://rocq-prover.org/doc/v8.20/api/coq-core/Vernacexpr/index.html). 
@@ -89,15 +89,15 @@ In order to abstract away the specific method calls required to retrieve Rocq sp
 
 ### `coq` Package
 
-![CoqPytClasses](./documentation/images/coq%20Class%20Diagram.png)
+![CoqPytClasses](./images/coq%20Class%20Diagram.png)
 
-The `coq` package defines all of the parts of the system that are directly related to CoqPyt and its goals. This package provides the direct interfaces that are used by the user in navigating and modifying Rocq files. Notable classes in this package include [`Step`](./documentation/coq/structs/Step.md), [`Term`](./documentation/coq/structs/Term.md), [`FileContext`](./documentation/coq/context/FileContext.md), [`_AuxFile`](./documentation/coq/proof_file/_AuxFile.md), [`CoqFile`](./documentation/coq/base_file/CoqFile.md), and [`ProofFile`](./documentation/coq/proof_file/ProofFile.md).
+The `coq` package defines all of the parts of the system that are directly related to CoqPyt and its goals. This package provides the direct interfaces that are used by the user in navigating and modifying Rocq files. Notable classes in this package include [`Step`](./coqpyt/coq/structs/Step.md), [`Term`](./coqpyt/coq/structs/Term.md), [`FileContext`](./coqpyt/coq/context/FileContext.md), [`_AuxFile`](./coqpyt/coq/proof_file/_AuxFile.md), [`CoqFile`](./coqpyt/coq/base_file/CoqFile.md), and [`ProofFile`](./coqpyt/coq/proof_file/ProofFile.md).
 
 #### `Step`
 A `Step` represents a single expression found in a Rocq file. This object holds the text of the expression, the element in the AST it is associated with, and all related diagnostics. When a file is opened by CoqPyt, it automatically creates steps for every expression in the file. These steps are then what is used as the smallest unit of the navigation in the file. On top of `Step`, CoqPyt also defines `ProofStep` which represents a step, or tactic, that is taken with in a proof.
 
 #### `Term`
-A `Term` represents a definition within the file. The  different types a term can represent can be found under the [TermType](./documentation/coq/structs/TermType.md) enum. Each term holds the `Step` in which it was defined. Unlike `Steps`, `Terms` are only created once the execution of the file reaches their definition, where they will then be added to the context of the file under the module they are defined in. On top of `Term`, CoqPyt also defines `ProofTerm` which is a special type of `Term` to represent a proof as a whole. These contain all steps used in the proof along with the terms defined in it.
+A `Term` represents a definition within the file. The  different types a term can represent can be found under the [TermType](./coqpyt/coq/structs/TermType.md) enum. Each term holds the `Step` in which it was defined. Unlike `Steps`, `Terms` are only created once the execution of the file reaches their definition, where they will then be added to the context of the file under the module they are defined in. On top of `Term`, CoqPyt also defines `ProofTerm` which is a special type of `Term` to represent a proof as a whole. These contain all steps used in the proof along with the terms defined in it.
 
 #### `FileContext`
 The `FileContext` is how CoqPyt handles the terms defined in both the current file and any libraries. The context stores all of the terms according to the modules they are defined in through the help of the `SegmentStack`, which keeps track of where the current location of execution is in the module tree. Terms can be added to and removed from the context through the processing of a step or through adding and removing libraries. The `FileContext` also offers operations for identifying what effects a step may have on the execution of a file, such as whether a step defines a new proof. 
@@ -125,19 +125,19 @@ Below are a collection of some key operations that are offered by CoqPyt through
 
 #### `CoqFile.__init__()`
 
-![Init](./documentation/images/CoqFile%20Init.png)
+![Init](./images/CoqFile%20Init.png)
 
-As the main interface of the system, the `CoqFile` must be able to initialize all aspects of the system. When creating a new `CoqFile`, a file path to the Rocq file must be passed in. First, the `__init_path` method is called which handles the case of the path pointing to an unmodifiable Rocq file, such as a library. From there, the `CoqLspClient` and its related objects are created and initialized. Then, the `CoqFile` sends the `"textDocument/didOpen"` notification to the LSP through `CoqLspCient` to have the server open and evaluate the file. With the file evaluated, the `CoqFile` calls the `"coq/getDocument"` method to get the [FlecheDocument](./documentation/coq/lsp/structs/FlecheDocument.md) with the AST from the server. Using the AST, the `CoqFile` initializes all steps in a loop. Finally, the `CoqFile` creates a new `FileContext` instance for storing terms. This `FileContext` finishes its initialization through the creation of a new `SegmentStack` instance.
+As the main interface of the system, the `CoqFile` must be able to initialize all aspects of the system. When creating a new `CoqFile`, a file path to the Rocq file must be passed in. First, the `__init_path` method is called which handles the case of the path pointing to an unmodifiable Rocq file, such as a library. From there, the `CoqLspClient` and its related objects are created and initialized. Then, the `CoqFile` sends the `"textDocument/didOpen"` notification to the LSP through `CoqLspCient` to have the server open and evaluate the file. With the file evaluated, the `CoqFile` calls the `"coq/getDocument"` method to get the [FlecheDocument](./coqpyt/coq/lsp/structs/FlecheDocument.md) with the AST from the server. Using the AST, the `CoqFile` initializes all steps in a loop. Finally, the `CoqFile` creates a new `FileContext` instance for storing terms. This `FileContext` finishes its initialization through the creation of a new `SegmentStack` instance.
 
 #### `CoqFile.exec()`
 
-![Exec](./documentation/images/CoqFile%20Exec.png)
+![Exec](./images/CoqFile%20Exec.png)
 
 The `exec()` operation is used to execute a provided number of steps in a Rocq file. This number of steps could be negative to indicate that the steps should be undone instead. After being called, the `CoqFile` runs the `_step()` method the indicated number of times. In this method, the `CoqFile` could take two paths of execution. If the number of steps is positive, then the `CoqFile` calls the `process_step()` method on the `FileContext` object which handles adding all terms that are defined from this step. If the number of steps is negative, then the `CoqFile` calls the `undo_step()` method on the `FileContext` object which removes any terms that were defined from this step.
 
 #### `CoqFile.add_step()`
 
-![AddStep](./documentation/images/CoqFile%20Add%20Step.png)
+![AddStep](./images/CoqFile%20Add%20Step.png)
 
 As an example of making a specific change to a file, the execution of the `add_step()` method is used. When calling the `add_step()` method, the `CoqFile` calls the `_make_change()` method.  From here, the `CoqFile` performs the necessary changes to the file through adding the text to the file, calling the `CoqLspClient` to re-evaluate the file, then retrieving the updated AST from the LSP. With the updated AST, the `CoqFile` re-initializes all steps, then runs `exec()` to ensure that the context of the file has been updated to match the changes.
 
@@ -145,7 +145,7 @@ The operation for removing steps is very similar, with minor differences in call
 
 #### `CoqFile.change_steps()`
 
-![ChangeSteps](./documentation/images/CoqFile%20Change%20Steps.png)
+![ChangeSteps](./images/CoqFile%20Change%20Steps.png)
 
 While the simple operation of adding or removing one step can be useful, the real power of CoqPyt's file modification is through the `change_steps()` operation. This method takes in a list of `CoqChange` objects which represent individual changes to the file, such as addition and deletion. What makes this operation so powerful is its ability to roll back the file after modification. To accomplish this, under the `_make_change()` method, it calls `__set_backup_steps()` which stores a copy of the current steps of the file into a separate attribute. Then, it calls `_change_steps()` to apply the provided changes. After moving the point of execution to before the location of the changes, `CoqFile` goes through each change and applies the proper adjustments to the file's contents and to the AST. Next, it calls the `__update_steps()` method to retrieve the updated AST from the LSP. If the new AST is not valid, then the execution of the method breaks without calling the `__copy_steps()` which actually applies the changes. Finally, `exec()` is ran to ensure that the context of the file has been updated to match the changes.
 
@@ -153,6 +153,6 @@ By never applying invalid changes to the file, it allows the user to be able to 
 
 #### `CoqFile.save_vo()`
 
-![SaveVO](./documentation/images/CoqFile%20Save%20vo.png)
+![SaveVO](./images/CoqFile%20Save%20vo.png)
 
 The `save_vo()` method is a simple method that communicates with the `CoqLspClient` by calling the `"coq/saveVo"` method. This example is mainly useful in seeing how the `CoqFile` uses the `CoqLspClient` to communicate in isolation.
