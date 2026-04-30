@@ -11,7 +11,7 @@ Documentation for the CoqPyt Python client for coq-lsp.
 - [System Breakdown](#system-breakdown)
 - [Support](#support)
 - [Credits](#credits)
-- [Lisense](#lisense)
+- [License](#license)
 
 ## Per-Class Documentation
 
@@ -33,6 +33,6 @@ This documentation has last been updated for commit [1792a3f](https://github.com
 This documentation was created by Archer Matthias under the supervision of Dr. Ali Ghanbari as an Honors Project for COMP 3700 Software Modeling and Design at Auburn University. 
 
 
-## Lisense
+## License
 
 
