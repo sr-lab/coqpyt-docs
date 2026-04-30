@@ -9,7 +9,6 @@ This document covers the basic breakdown of the CoqPyt system, allowing for the 
 
 
 ## Table of Contents
-- [Per-Class Documentation](#per-class-documentation)
 - [Components and Packages](#components-and-packages)
 - [Class Implementations](#class-implementations)
     - [`lsp` Package](#lsp-package)
@@ -21,11 +20,6 @@ This document covers the basic breakdown of the CoqPyt system, allowing for the 
     - [`CoqFile.add_step()`](#coqfileadd_step)
     - [`CoqFile.change_steps()`](#coqfilechange_steps)
     - [`CoqFile.save_vo()](#coqfilesave_vo)
-- [Credits](#credits)
-
-
-## Per-Class Documentation
-For detailed, per-class documentation, see [PerClassDocs.md](./documentation/PerClassDocs.md). 
 
 
 ## Components and Packages
@@ -162,8 +156,3 @@ By never applying invalid changes to the file, it allows the user to be able to 
 ![SaveVO](./documentation/images/CoqFile%20Save%20vo.png)
 
 The `save_vo()` method is a simple method that communicates with the `CoqLspClient` by calling the `"coq/saveVo"` method. This example is mainly useful in seeing how the `CoqFile` uses the `CoqLspClient` to communicate in isolation.
-
-
-## Credits
-
-This documentation was created by Archer Matthias under the supervision of Dr. Ali Ghanbari as an Honors Project for COMP 3700 Software Modeling and Design at Auburn University. 
