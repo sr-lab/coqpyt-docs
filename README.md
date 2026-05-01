@@ -35,4 +35,4 @@ This documentation was created by Archer Matthias under the supervision of Dr. A
 
 ## License
 
-
+[MIT](./LICENSE)
