@@ -4,5 +4,5 @@ This document allows for easy navigation through the per-class documentation of 
 
 ## Packages
 
-- [`coq`](./coq/docs.md)
-- [`lsp`](./lsp/docs.md)
+- [`coq`](./coqpyt/coq/docs.md)
+- [`lsp`](./coqpyt/lsp/docs.md)

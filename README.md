@@ -2,7 +2,7 @@
 
 Documentation for the CoqPyt Python client for coq-lsp.
 
-[CoqPyt](https://github.com/sr-lab/coqpyt) is a Python client for [coq-lsp](https://github.com/ejgallego/coq-lsp), providing interaction with Coq files and navigation through proofs. This repository provides detailed documentation for all of CoqPyt's features and for how CoqPyt works under the hood.
+[CoqPyt](https://github.com/sr-lab/coqpyt) is a Python client for [rocq-lsp](https://github.com/ejgallego/rocq-lsp), providing interaction with Rocq files and navigation through proofs. This repository provides detailed documentation for all of CoqPyt's features and for how CoqPyt works under the hood.
 
 
 ## Table of Contents
@@ -25,7 +25,7 @@ For a basic breakdown of CoqPyt's system, see [SystemBreakdown.md](./SystemBreak
 
 ## Support
 
-This documentation has last been updated for commit [1792a3f](https://github.com/acmatthias/coqpyt/tree/1792a3f2a419bbbc17252f64b147e8f8812bcdd5) of CoqPyt, committed on November 21, 2025.
+This documentation has last been updated for commit [1792a3f](https://github.com/sr-lab/coqpyt/tree/1792a3f2a419bbbc17252f64b147e8f8812bcdd5) of CoqPyt, committed on November 21, 2025.
 
 
 ## Credits
